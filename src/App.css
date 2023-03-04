@@ -1,0 +1,39 @@
+.App{
+    max-width: 500px;
+    margin: 0 auto;
+    margin-block: 5rem;
+}
+
+header{
+    padding: 10px;
+}
+
+form{
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+input{
+    background-color: #1e293b;
+    padding: 1rem;
+    font-size: 1rem;
+    color: #f1f5f9;
+    flex: 1;
+    border: none;
+}
+
+.btn-header{
+    padding: 1rem;
+}
+
+.options{
+    padding: 1rem;
+}
+
+
+h1{
+    text-align: center;
+    font-size: 3rem;
+    color: #f8fafc;
+}
