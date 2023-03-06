@@ -1,11 +1,14 @@
 import { useState } from "react"
 import { toast } from "react-hot-toast"
+import {FaPlus} from 'react-icons/fa'
+import supabase from "../helper/suppabase"
+
 
 
 export default function Form({ setIsTask }) {
     const [isVal, setIsVal] = useState()
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
 
         
@@ -13,29 +16,30 @@ export default function Form({ setIsTask }) {
             toast.error("Please input task")
             return
         }
-        
-        const data ={
-            id: Math.round(Math.random() * 33),
-            task: isVal,
-            complete: "Complete",
-            delete: "Delete"
-        }
 
-        setIsTask((prev) => [...prev, data])
-        toast.success("Nice 👌")
+        const { data: tasks, error } = await supabase
+        .from('todos')
+        .insert({tasks : isVal})
+        .select()
+
+        setIsTask((prev) => [...prev, tasks[0]])
+        toast.success("Success 👌")
         setIsVal("")
+    }
+
+    const HandleFilter = () =>{
+        
     }
 
     return (
         <form onSubmit={onSubmit}>
             <div className="input-task">
                 <input type="text" value={isVal} onChange={(e) => setIsVal(e.target.value)} />
-                <button className="btn-header">+</button>
+                <button className="btn-header"><FaPlus size={20}/></button>
             </div>
-            <select className="options">
+            <select className="options" onChange={HandleFilter}>
                 <option value="All">All</option>
                 <option value="Complete">Complete</option>
-                <option value="Current">Current</option>
             </select>
         </form>
     )

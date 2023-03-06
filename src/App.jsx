@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import Form from '../components/Form'
 import Header from '../components/Header'
 import Todos from '../components/Todos'
+import supabase from '../helper/suppabase'
 import './App.css'
 
 
@@ -10,9 +11,37 @@ import './App.css'
 function App() {
   const [isTask, setIsTask] = useState([])
 
-  const removeTask = (e) => {
-    const newList = isTask.filter((item) => item.id !== e)
-    setIsTask(newList)
+
+  //local test
+  // const removeTask = (e) => {
+  //   const newList = isTask.filter((item) => item.id !== e)
+  //   setIsTask(newList)
+  // }
+
+
+  const removeTask = async (id) =>{
+    const { data, error } = await supabase
+    .from('todos')
+    .delete()
+    .eq('id', id)
+    .select()
+  }
+
+  useEffect(()=> {
+    const supabaseDB = async () =>{
+
+      const {data: db, error} = await supabase
+      .from("todos")
+      .select("*")
+
+
+      if(!error) setIsTask(db)
+    }
+    supabaseDB()
+  },[isTask])
+
+  const HandleFilter = () => {
+
   }
 
 
