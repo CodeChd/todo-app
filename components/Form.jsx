@@ -5,7 +5,7 @@ import supabase from "../helper/suppabase"
 
 
 
-export default function Form({ setIsTask }) {
+export default function Form({ setIsTask, HandleFilter }) {
     const [isVal, setIsVal] = useState()
 
     const onSubmit = async (e) => {
@@ -26,20 +26,15 @@ export default function Form({ setIsTask }) {
         toast.success("Success 👌")
         setIsVal("")
     }
-
-    const HandleFilter = () =>{
-        
-    }
-
     return (
         <form onSubmit={onSubmit}>
             <div className="input-task">
-                <input type="text" value={isVal} onChange={(e) => setIsVal(e.target.value)} />
+                <input type="text" value={isVal} onChange={(e) => setIsVal(e.target.value)}/>
                 <button className="btn-header"><FaPlus size={20}/></button>
             </div>
             <select className="options" onChange={HandleFilter}>
-                <option value="All">All</option>
-                <option value="Complete">Complete</option>
+                <option value="all">All</option>
+                <option value="complete">Complete</option>
             </select>
         </form>
     )

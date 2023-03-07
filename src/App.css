@@ -86,3 +86,11 @@ input{
     color: #4059a0;
     transition: text-decoration 300ms ease-in-out;
 }
+
+.spinner{
+    margin: 4rem auto;
+}
+
+
+
+
