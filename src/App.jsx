@@ -12,6 +12,11 @@ function App() {
   const [isTask, setIsTask] = useState([])
   const [loading, setIsLoading] = useState(false)
 
+  // const [isChange, setIsChange] = useState(false)
+  // const [isUpdating, setUpdating] = useState(false)
+
+
+
 
   //local test
   // const removeTask = (e) => {
@@ -20,19 +25,7 @@ function App() {
   // }
 
 
-
-  const removeTask = async (id) => {
-    const { data, error } = await supabase
-      .from('todos')
-      .delete()
-      .eq('id', id)
-      .select()
-
-    setIsTask(prev => prev.filter(ts => ts.id !== id))
-
-
-  }
-
+  // fetch
   useEffect(() => {
     const supabaseDB = async () => {
       setIsLoading(true)
@@ -48,28 +41,59 @@ function App() {
     supabaseDB()
   }, [])
 
-  
 
+//     // Update
+// async function handleUpdate(e) {
+//   setUpdating(true)
+
+//   const res =isTask.map(e =>  (e.id))
+
+//   const { data: updatedTask, error } = await supabase
+//     .from('todos')
+//     .update({ complete: !isChange })
+//     .eq("id", res)
+//     .select()
+
+//   setUpdating(false)
+
+//   if (!error) setIsTask((is) => is.map(e => e.id === isTask.id ? updatedTask[0] : e))
+
+//   setIsChange(!isChange)
+// }
+
+
+// delete
+  const removeTask = async (id) => {
+    const { data, error } = await supabase
+      .from('todos')
+      .delete()
+      .eq('id', id)
+      .select()
+
+    setIsTask(prev => prev.filter(ts => ts.id !== id))
+
+
+  }
+
+
+  
+// filter
   const HandleFilter = async (e) => {
     const selectOptions = e.target.value
     setIsLoading(true)
 
-    let q = supabase.from('todos').select()
+    let q = supabase.from('todos').select("*")
 
     if (selectOptions !== "all") {
       q.eq("complete", "true")
     }
 
-    const { data: db, error } = await q
+    const { data: db, error } = await q``
       .select()
 
     if (!error) setIsTask(db)
     setIsLoading(false)
    }
-
-
-
-  // console.log(isTask.map(e => e.complete))
 
 
   return (
@@ -82,7 +106,6 @@ function App() {
         <CircleLoader color='#38dfcb' size={99} className='spinner' />
         :
         <Todos removeTask={removeTask} isTask={isTask} setIsTask={setIsTask} />
-
       }
 
     </div>

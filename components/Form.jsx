@@ -35,6 +35,7 @@ export default function Form({ setIsTask, HandleFilter }) {
             <select className="options" onChange={HandleFilter}>
                 <option value="all">All</option>
                 <option value="complete">Complete</option>
+                <option value="complete">Uncomplete</option>
             </select>
         </form>
     )

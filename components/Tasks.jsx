@@ -9,22 +9,21 @@ export default function Tasks({ isTask, setIsTask, removeTask }) {
 
   // Update
 
-
-  async function handleUpdate(e) {
+  async function handleUpdate(update) {
     setUpdating(true)
 
 
     const { data: updatedTask, error } = await supabase
       .from('todos')
-      .update({ complete: !isChange })
+      .update({ complete: update })
       .eq("id", isTask.id)
       .select()
 
     setUpdating(false)
 
     if (!error) setIsTask((is) => is.map(e => e.id === isTask.id ? updatedTask[0] : e))
-
     setIsChange(!isChange)
+
 
   }
 
@@ -34,7 +33,7 @@ export default function Tasks({ isTask, setIsTask, removeTask }) {
     <li key={isTask.id} className="task-list">
 
       <p className={`${isTask.complete ? "task-done" : null} task`}>{isTask.tasks}</p>
-      <button className='btn btn-complete' onClick={handleUpdate}><FaCheck size={20} color="white" /></button>
+      <button className='btn btn-complete' onClick={() => handleUpdate(!isChange)}><FaCheck size={20} color="white" /></button>
       <button className='btn btn-delete' onClick={() => removeTask(isTask.id)}><FaTrash size={20} color="white" /></button>
 
     </li>
