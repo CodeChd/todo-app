@@ -85,10 +85,10 @@ function App() {
     let q = supabase.from('todos').select("*")
 
     if (selectOptions !== "all") {
-      q.eq("complete", "true")
+      q.eq("complete", selectOptions)
     }
 
-    const { data: db, error } = await q``
+    const { data: db, error } = await q
       .select()
 
     if (!error) setIsTask(db)
@@ -105,6 +105,7 @@ function App() {
 
         <CircleLoader color='#38dfcb' size={99} className='spinner' />
         :
+        
         <Todos removeTask={removeTask} isTask={isTask} setIsTask={setIsTask} />
       }
 

@@ -27,7 +27,10 @@ export default function Tasks({ isTask, setIsTask, removeTask }) {
 
   }
 
-  console.log(isTask.complete)
+
+
+
+
 
   return (
     <li key={isTask.id} className="task-list">

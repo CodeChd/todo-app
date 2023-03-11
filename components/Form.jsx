@@ -27,15 +27,15 @@ export default function Form({ setIsTask, HandleFilter }) {
         setIsVal("")
     }
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} >
             <div className="input-task">
                 <input type="text" value={isVal} onChange={(e) => setIsVal(e.target.value)}/>
                 <button className="btn-header"><FaPlus size={20}/></button>
             </div>
             <select className="options" onChange={HandleFilter}>
                 <option value="all">All</option>
-                <option value="complete">Complete</option>
-                <option value="complete">Uncomplete</option>
+                <option value="true">Complete</option>
+                <option value="false">Uncomplete</option>
             </select>
         </form>
     )
